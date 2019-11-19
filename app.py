@@ -5,7 +5,7 @@ import pandas as pd
 app = Flask(__name__)
 
 # Use pandas to load csv data
-df = pd.read_csv('beers-cleaned.csv')
+# df = pd.read_csv('beers-cleaned.csv')
 
 
 @app.route("/")
