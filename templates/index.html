@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Pick Your Beer</title>
+  <title>Best Beer Picker</title>
 
   <!-- favicons for different devices -->
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}"/>
@@ -28,11 +28,15 @@
 
 <body>
   <div class="container text-center">
+
+    <!-- Title -->
     <div class="row">
       <div class="col-xs-12 col-md-12">
         <h1>Pick Your Beer</h1>
       </div>
     </div>
+
+    <!-- beer banner -->
     <div class="row">
       <div class="span4"></div>
       <div class="span4 crop">
@@ -46,13 +50,35 @@
       <div class="span4"></div>
     </div>
 
-
+    <!-- search bar -->
     <div class="row">
       <div class="active-cyan-4 mb-4" id="search">
-        <input class="form-control" type="text" placeholder="Describe your dream beer..." aria-label="Search">
+        <input class="form-control" type="text" placeholder="Describe your dream beer..." aria-label="Search beers">
+      </div>
+    </div>
+
+    <!-- filters -->
+    <div class="row">
+      <div class="col-md-4 active-cyan-4 mb-4" id="abv">
+        <input class="form-control" type="number" placeholder="5" aria-label="ABV">
+      </div>
+      <div class="col-md-4 active-cyan-4" id="bitter">
+        <input class="form-control" type="text" placeholder="yes">
+      </div>
+      <div class="col-md-4 active-cyan-4" id="neighbors">
+        <input class="form-control" type="number" placeholder="1">
       </div>
     </div>
   </div>
+
+  <!-- submit button -->
+  <div class="row">
+    <div class="col-md-8" id="submit">
+      <input type="submit">
+    </div>
+  </div>
+
+
 
   <!-- Footer-->
   <div id="footer">
