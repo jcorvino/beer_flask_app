@@ -5,8 +5,8 @@ import pandas as pd
 app = Flask(__name__)
 
 # Use pandas to load csv data
-read_cols = ['id', 'brewery_id', 'name', 'cat_id', 'style_id', 'abv', 'ibu', 'srm', 'upc', 'descript']
-df = pd.read_csv('beers-cleaned.csv', encoding='latin-1', usecols=read_cols)
+# read_cols = ['id', 'brewery_id', 'name', 'cat_id', 'style_id', 'abv', 'ibu', 'srm', 'upc', 'descript']
+# df = pd.read_csv('beers-cleaned.csv', encoding='latin-1', usecols=read_cols)
 
 
 @app.route("/")

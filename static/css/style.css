@@ -1,0 +1,43 @@
+@media (min-width: 1024px) {
+    .crop img {
+        height: 100%;
+    }
+
+    #search {
+        width: 1024px;
+        margin-top: 50px;
+    }
+}
+
+@media (min-width: 900px) and (max-width: 1024px) {
+    .crop img {
+        height: 400px;
+    }
+
+    #search {
+        width: 900px;
+        margin-top: 40px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 900px) {
+    .crop img {
+        height: 300px;
+    }
+
+    #search {
+        width: 768px;
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .crop img {
+        height: 200px;
+    }
+
+    #search {
+        width: 500px;
+        margin-top: 20px;
+    }
+}
