@@ -28,7 +28,7 @@
 
 <body>
   <div class="container text-center">
-
+  <form method="post">
     <!-- Title -->
     <div class="row">
       <div class="col-xs-12 col-md-12">
@@ -53,31 +53,38 @@
     <!-- search bar -->
     <div class="row">
       <div class="active-cyan-4 mb-4" id="search">
-        <input class="form-control" type="text" placeholder="Describe your dream beer..." aria-label="Search beers">
+        <input class="form-control" type="text" placeholder="Describe your dream beer..." name="text">
       </div>
     </div>
 
     <!-- filters -->
     <div class="row">
       <div class="col-md-4 active-cyan-4 mb-4" id="abv">
-        <input class="form-control" type="number" placeholder="5" aria-label="ABV">
+        <input class="form-control" type="number" placeholder="5" name="abv">
       </div>
       <div class="col-md-4 active-cyan-4" id="bitter">
-        <input class="form-control" type="text" placeholder="yes">
+        <input class="form-control" type="text" placeholder="yes" name="bitter">
       </div>
       <div class="col-md-4 active-cyan-4" id="neighbors">
-        <input class="form-control" type="number" placeholder="1">
+        <input class="form-control" type="number" placeholder="1" name="neighbors">
       </div>
     </div>
-  </div>
 
-  <!-- submit button -->
-  <div class="row">
-    <div class="col-md-8" id="submit">
-      <input type="submit">
+
+    <!-- submit button -->
+    <div class="row">
+      <div class="col-md-8" id="submit">
+        <input type="submit" value="Beer Search">
+      </div>
     </div>
+  </form>
+
+  <!-- results -->
+  <div class="row">
+    <p>{{results}}</p>
   </div>
 
+</div>
 
 
   <!-- Footer-->

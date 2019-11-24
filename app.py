@@ -1,23 +1,27 @@
-from flask import Flask, render_template
-import pandas as pd
+from flask import Flask, render_template, request
+import json
+from beer import closest_beer
 
 
 app = Flask(__name__)
 
-# Use pandas to load csv data
-# read_cols = ['id', 'brewery_id', 'name', 'cat_id', 'style_id', 'abv', 'ibu', 'srm', 'upc', 'descript']
-# df = pd.read_csv('beers-cleaned.csv', encoding='latin-1', usecols=read_cols)
 
-
-@app.route("/")
+@app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template("index.html", results=None)
 
 
-@app.route("/beers")
-def beers():
-    return "Finding beers!"
+@app.route('/', methods=['POST'])
+def beers_post():
+    text = request.form['text']
+    abv = request.form['abv']
+    bitter = request.form['bitter']
+    neighbors = request.form['neighbors']
+    user_input = json.dumps({"abv": abv, "text": text, "bitter": bitter, "neighbors": neighbors})
+    best_beers = closest_beer(user_input)
+    print(best_beers)
+    return render_template('index.html', results=best_beers)
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
