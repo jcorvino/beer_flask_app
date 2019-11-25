@@ -4,11 +4,10 @@ import numpy as np
 # import re
 import json
 
-# import nltk
-# nltk.download('stopwords')
-# nltk.download('punkt')
-# nltk.download('wordnet')
-
+import nltk
+nltk.download('stopwords')
+nltk.download('punkt')
+nltk.download('wordnet')
 from nltk.corpus import stopwords
 from nltk import word_tokenize as tokenize
 from nltk.stem import WordNetLemmatizer
@@ -47,6 +46,33 @@ from scipy.spatial import cKDTree as KDTree
 # df.to_csv('./cleaned_berr_data_asilva_11232019.csv')
 
 NEW_BEER_ID = 99999
+full_df = pd.read_csv('./cleaned_berr_data_asilva_11232019.csv')
+
+
+def beer_details(beer_ids):
+    """
+    Get beer details given a list of beer ids
+
+    :param beer_id: list of beer ids
+    :return: details
+    """
+    cols = ['text', 'beer_name', 'abv', 'bitter']
+    details = dict()
+    for beer_id in beer_ids:
+        details[beer_id] = dict()
+        for col in cols:
+            value = full_df[full_df.beer_id == beer_id][col].values[0]
+            if col == 'bitter':
+                if value == 0:
+                    value = 'less bitter'
+                else:
+                    value = 'more bitter'
+            details[beer_id][col] = value
+
+            # print(idx)
+            # details[beer_id][col] = full_df.iloc[idx][col]
+            # break
+    return details
 
 
 def closest_beer(user_input):
@@ -117,9 +143,8 @@ def closest_beer(user_input):
     tree = KDTree(df[cols])
 
     neighbor_indices = tree.query(df[df.beer_id == NEW_BEER_ID][cols], k=n_neighbors + 1)[-1]
-    
-    ids = df.iloc[neighbor_indices[0][1::]]['beer_id'].values
 
+    ids = df.iloc[neighbor_indices[0][1::]]['beer_id'].values
     return json.dumps({'beer_id': [int(x) for x in ids]})
 
 
@@ -128,4 +153,6 @@ if __name__ == '__main__':
     output = closest_beer(test_josn)
     print(output)
 
+    output2 = beer_details(json.loads(output)['beer_id'])
+    print(output2[3559])
 

@@ -9,6 +9,16 @@
         margin-top: 0px;
         margin-bottom: 0px;
     }
+
+    .results {
+        margin: 50px;
+    }
+
+    .beer-info {
+        margin: 50px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -18,6 +28,16 @@
     }
 
     .filters {
+        margin: 35px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    .results {
+        margin: 35px;
+    }
+
+    .beer-info {
         margin: 35px;
         margin-top: 0px;
         margin-bottom: 0px;
@@ -36,6 +56,15 @@
         margin-bottom: 0px;
     }
 
+    .results {
+        margin: 25px;
+    }
+
+    .beer-info {
+        margin: 25px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
 }
 
 #search {

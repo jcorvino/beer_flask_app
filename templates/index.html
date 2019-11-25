@@ -15,7 +15,7 @@
   <!-- search bar -->
   <div class="row search">
     <div class="active-cyan-12" id="search">
-      <input class="form-control" type="text" placeholder="Describe your dream beer..." name="text">
+      <input class="form-control" type="text" placeholder="Describe your dream beer..." value="{{ request.form['text']}}" name="text" pattern=".{,255}" required title="255 characters maximum">
     </div>
   </div>
 
@@ -26,7 +26,7 @@
        <p>ABV:</p>
       </div>
       <div class="row active-cyan-4 mb-4">
-        <input class="form-control" type="number" placeholder="5" name="abv" id="abv">
+        <input class="form-control" type="number" value="{{ request.form['abv'] or 5 }}" name="abv" id="abv" min="0" max="50">
       </div>
     </div>
 
@@ -35,7 +35,15 @@
         <p>Bitterness:</p>
       </div>
       <div class="row active-cyan-4 mb-4">
-        <input class="form-control" type="text" placeholder="yes" name="bitter" id="bitter">
+        <select class="form-control" name="bitter" id="bitter">
+          {% if request.form['bitter'] == 'no' %}
+            <option value="yes">More Bitter</option>
+            <option value="no" selected>Less Bitter</option>
+          {% else %}
+            <option value="yes" selected>More Bitter</option>
+            <option value="no">Less Bitter</option>
+          {% endif %}
+        </select>
       </div>
     </div>
 
@@ -44,7 +52,7 @@
         <p>Number of Results:</p>
       </div>
       <div class="row active-cyan-4 mb-4">
-        <input class="form-control" type="number" placeholder="1" name="neighbors" id="neighbors">
+        <input class="form-control" type="number" value="{{ request.form['neighbors'] or 1 }}" name="neighbors" id="neighbors" min="1" max="10">
       </div>
     </div>
   </div>
@@ -52,7 +60,7 @@
   <!-- submit button -->
   <div class="row">
     <div class="col-md-12 p-0">
-      <input type="submit" value="Beer Search" id="submit">
+      <input type="submit" value="Find My Beer" id="submit">
     </div>
   </div>
 </form>
@@ -62,9 +70,24 @@
 {% block results %}
   <!-- results -->
   {% if results %}
+    <div class="row results">
+      <div class="col-md-12">
+        {% if results|length > 1 %}
+          <h3>We found {{results|length}} beers for you!</h3>
+        {% else %}
+          <h3>We found a beer for you!</h3>
+        {% endif %}
+      </div>
+    </div>
     {% for result in results %}
-    <div class="row search">
-      <p>{{result}}</p>
+    <div class="row beer-info">
+      <h5>{{details[result]['beer_name']}}</h5>
+    </div>
+    <div class="row beer-info">
+      <p>ABV: {{details[result]['abv']}}% Bitterness: {{details[result]['bitter']}}</p>
+    </div>
+    <div class="row beer-info">
+      <p>{{details[result]['text']}}</p>
     </div>
     {% endfor %}
   {% endif %}

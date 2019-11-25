@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 import json
-from beer import closest_beer
+from beer import closest_beer, beer_details
 
 
 app = Flask(__name__)
@@ -14,7 +14,7 @@ def index():
 @app.route('/', methods=['POST'])
 def beers_post():
     # Get text
-    text = request.form['text']
+    text = request.form['text'][0:255]  # max length of 255 chars
 
     # Get abv and sanitize
     abv = request.form['abv']
@@ -25,6 +25,8 @@ def beers_post():
 
     # Get bitter
     bitter = request.form['bitter']
+    if bitter not in ('yes', 'no'):
+        bitter = 'no'
 
     # Get neighbors and sanitize
     neighbors = request.form['neighbors']
@@ -37,10 +39,10 @@ def beers_post():
     user_input = json.dumps({"abv": abv, "text": text, "bitter": bitter, "neighbors": neighbors})
     best_beers = closest_beer(user_input)
 
+    # compile results
     beer_ids = json.loads(best_beers)['beer_id']
-
-
-    return render_template('index.html', results=beer_ids)
+    details = beer_details(beer_ids)
+    return render_template('index.html', results=beer_ids, details=details)
 
 
 if __name__ == "__main__":
