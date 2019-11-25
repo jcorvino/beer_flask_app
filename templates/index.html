@@ -15,7 +15,7 @@
   <!-- search bar -->
   <div class="row search">
     <div class="active-cyan-12" id="search">
-      <input class="form-control" type="text" placeholder="Describe your dream beer..." value="{{ request.form['text']}}" name="text" pattern=".{,255}" required title="255 characters maximum">
+      <input class="form-control" type="text" placeholder="Describe your dream beer..." value="{{ request.form['text']}}" name="text" maxlength="255">
     </div>
   </div>
 
