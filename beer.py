@@ -46,18 +46,27 @@ from scipy.spatial import cKDTree as KDTree
 
 # df.to_csv('./cleaned_berr_data_asilva_11232019.csv')
 
+NEW_BEER_ID = 99999
+
+
 def closest_beer(user_input):
-    
+    """
+    Take user input and find closest beer neighbors
+
+    :param user_input: json with text, bitter, abv, and neighbors
+    :return: json with list of beer ids
+    """
+
     user_dict = json.loads(user_input)
     
-    n_neighbors = float(user_dict['neighbors'])
+    n_neighbors = int(user_dict['neighbors'])
 
     read_cols = ['beer_id', 'text', 'bitter', 'abv']
 
     df = pd.read_csv('./cleaned_berr_data_asilva_11232019.csv', usecols=read_cols)
 
-    user_data = pd.DataFrame(user_dict, index=[99999])
-    user_data['beer_id'] = 99999
+    user_data = pd.DataFrame(user_dict, index=[NEW_BEER_ID])
+    user_data['beer_id'] = NEW_BEER_ID
     user_data.bitter = np.where((user_data.bitter.str.lower().str.contains('y')), 1, 0)
     user_data.abv = user_data.abv.astype(float)
     user_data = user_data[read_cols]
@@ -107,16 +116,15 @@ def closest_beer(user_input):
     cols = list(set(df.columns) - set(['beer_id']))
     tree = KDTree(df[cols])
 
-    neighbor_indices = tree.query(df[df.beer_id == 99999][cols], k=n_neighbors + 1)[-1]
+    neighbor_indices = tree.query(df[df.beer_id == NEW_BEER_ID][cols], k=n_neighbors + 1)[-1]
     
     ids = df.iloc[neighbor_indices[0][1::]]['beer_id'].values
-    
+
     return json.dumps({'beer_id': [int(x) for x in ids]})
 
 
 if __name__ == '__main__':
-    # test_josn = json.dumps({"abv": "5", "text": "light fruity beer", "bitter": "no", "neighbors": "6"})
-    test_josn = json.dumps({"abv": "5", "text": "I want a frothy winter strong man's beer because I'm a hardy manly man *muscle emoji*", "bitter": "no", "neighbors": "6"})
+    test_josn = json.dumps({"abv": "5", "text": "light fruity beer", "bitter": "no", "neighbors": "6"})
     output = closest_beer(test_josn)
     print(output)
 

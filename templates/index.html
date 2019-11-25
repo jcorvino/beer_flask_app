@@ -1,107 +1,71 @@
-<!DOCTYPE html>
-<html lang="en-US">
-
-<head>
-  <meta charset="UTF-8">
-  <title>Best Beer Picker</title>
-
-  <!-- favicons for different devices -->
-  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}"/>
-  <link rel="apple-touch-icon-precomposed" href="{{ url_for('static', filename='favicon/beer-152-270546.png') }}"/>
-  <link rel="apple-touch-icon-precomposed" href="{{ url_for('static', filename='favicon/beer-152-270546.png') }}"/>
-  <meta name="msapplication-TileColor" content="#ffffff" />
-  <meta name="msapplication-TileImage" content="{{ url_for('static', filename='favicon/beer-144-270546.png') }}">
-  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ url_for('static', filename='favicon/beer-152-270546.png') }}"/>
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url_for('static', filename='favicon/beer-144-270546.png') }}"/>
-  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{{ url_for('static', filename='favicon/beer-120-270546.png') }}"/>
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ url_for('static', filename='favicon/beer-114-270546.png') }}"/>
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ url_for('static', filename='favicon/beer-72-270546.png') }}"/>
-  <link rel="apple-touch-icon-precomposed" href="{{ url_for('static', filename='favicon/beer-57-270546.png') }}"/>
-  <link rel="icon" sizes="32x32" href="{{ url_for('static', filename='favicon/beer-32-270546.png') }}"/>
+{% extends "base.html" %}
 
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-    crossorigin="anonymous"/>
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"/>
-
-</head>
-
-<body>
-  <div class="container text-center">
-  <form method="post">
-    <!-- Title -->
-    <div class="row">
-      <div class="col-xs-12 col-md-12">
-        <h1>Pick Your Beer</h1>
-      </div>
-    </div>
-
-    <!-- beer banner -->
-    <div class="row">
-      <div class="span4"></div>
-      <div class="span4 crop">
-        <img class="center-block img-responsive" src="{{ url_for('static', filename='images/ales-1280x1024.jpg') }}"
-        srcset="{{ url_for('static', filename='images/ales-1024x768.jpg') }} 768w,
-        {{ url_for('static', filename='images/ales-1280x900.jpg') }} 900w,
-        {{ url_for('static', filename='images/ales-1280x1024.jpg') }} 1024w"
-        sizes = "(min-width: 1024px) 1024px, 100vw"
-        alt="Yummy beer!">
-      </div>
-      <div class="span4"></div>
-    </div>
-
-    <!-- search bar -->
-    <div class="row">
-      <div class="active-cyan-4 mb-4" id="search">
-        <input class="form-control" type="text" placeholder="Describe your dream beer..." name="text">
-      </div>
-    </div>
-
-    <!-- filters -->
-    <div class="row">
-      <div class="col-md-4 active-cyan-4 mb-4" id="abv">
-        <input class="form-control" type="number" placeholder="5" name="abv">
-      </div>
-      <div class="col-md-4 active-cyan-4" id="bitter">
-        <input class="form-control" type="text" placeholder="yes" name="bitter">
-      </div>
-      <div class="col-md-4 active-cyan-4" id="neighbors">
-        <input class="form-control" type="number" placeholder="1" name="neighbors">
-      </div>
-    </div>
-
-
-    <!-- submit button -->
-    <div class="row">
-      <div class="col-md-8" id="submit">
-        <input type="submit" value="Beer Search">
-      </div>
-    </div>
-  </form>
-
-  <!-- results -->
+{% block banner %}
+  <!-- beer banner -->
   <div class="row">
-    <p>{{results}}</p>
+    <div class="col-md-12 p-0">
+      <img class="img-fluid w-100" src="{{ url_for('static', filename='images/ales-1275x503.jpg') }}"
+      alt="Yummy beer!">
+    </div>
   </div>
+{% endblock %}
 
-</div>
-
-
-  <!-- Footer-->
-  <div id="footer">
-    <div class="container text-center">
-      <p>Joe Corvino &copy;2019</p>
+{% block search %}
+  <!-- search bar -->
+  <div class="row search">
+    <div class="active-cyan-12" id="search">
+      <input class="form-control" type="text" placeholder="Describe your dream beer..." name="text">
     </div>
   </div>
 
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-    crossorigin="anonymous"></script>
-  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <!-- filters -->
+  <div class="row filters">
+    <div class="col-md-4">
+      <div class="row">
+       <p>ABV:</p>
+      </div>
+      <div class="row active-cyan-4 mb-4">
+        <input class="form-control" type="number" placeholder="5" name="abv" id="abv">
+      </div>
+    </div>
 
-</body>
+    <div class="col-md-4">
+      <div class="row">
+        <p>Bitterness:</p>
+      </div>
+      <div class="row active-cyan-4 mb-4">
+        <input class="form-control" type="text" placeholder="yes" name="bitter" id="bitter">
+      </div>
+    </div>
 
-</html>
+    <div class="col-md-4">
+      <div class="row">
+        <p>Number of Results:</p>
+      </div>
+      <div class="row active-cyan-4 mb-4">
+        <input class="form-control" type="number" placeholder="1" name="neighbors" id="neighbors">
+      </div>
+    </div>
+  </div>
+
+  <!-- submit button -->
+  <div class="row">
+    <div class="col-md-12 p-0">
+      <input type="submit" value="Beer Search" id="submit">
+    </div>
+  </div>
+</form>
+{% endblock %}
+
+
+{% block results %}
+  <!-- results -->
+  {% if results %}
+    {% for result in results %}
+    <div class="row search">
+      <p>{{result}}</p>
+    </div>
+    {% endfor %}
+  {% endif %}
+{% endblock %}
